@@ -57,6 +57,8 @@ function Portfolio() {
   useEffect(() => {
     const img = portraitRef.current;
     if (img?.complete && img.naturalWidth > 0) img.classList.add("is-loaded");
+    const fallback = window.setTimeout(() => img?.classList.add("is-loaded"), 1200);
+    return () => window.clearTimeout(fallback);
   }, []);
   return (
     <main className="portfolio-shell" id="top">
