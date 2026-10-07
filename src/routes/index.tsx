@@ -1,3 +1,4 @@
+import { useEffect, useRef } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowDown, ArrowUpRight, FileText, Linkedin } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -52,11 +53,16 @@ const projects = [
 ];
 
 function Portfolio() {
+  const portraitRef = useRef<HTMLImageElement>(null);
+  useEffect(() => {
+    const img = portraitRef.current;
+    if (img?.complete && img.naturalWidth > 0) img.classList.add("is-loaded");
+  }, []);
   return (
     <main className="portfolio-shell" id="top">
       <section className="hero" aria-label="Syed Abdul Wahab introduction">
         <div className="hero-bubbles" aria-hidden="true">{Array.from({ length: 12 }, (_, index) => <i key={index} />)}</div>
-        <img className="hero-image" src={portrait} alt="Syed Abdul Wahab in a sharply lit editorial portrait" width={1145} height={768} fetchPriority="high" />
+        <img ref={portraitRef} className="hero-image" src={portrait} alt="Syed Abdul Wahab in a sharply lit editorial portrait" width={1145} height={768} fetchPriority="high" onLoad={(event) => event.currentTarget.classList.add("is-loaded")} />
         <div className="topbar" aria-hidden="true" />
         <div className="hero-dark-accent" aria-hidden="true"><i /><i /><i /></div>
         <div className="hero-copy">
