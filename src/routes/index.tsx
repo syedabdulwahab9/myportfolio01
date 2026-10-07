@@ -53,6 +53,11 @@ const projects = [
 ];
 
 function Portfolio() {
+  const portraitRef = useRef<HTMLImageElement>(null);
+  useEffect(() => {
+    const img = portraitRef.current;
+    if (img?.complete && img.naturalWidth > 0) img.classList.add("is-loaded");
+  }, []);
   return (
     <main className="portfolio-shell" id="top">
       <section className="hero" aria-label="Syed Abdul Wahab introduction">
